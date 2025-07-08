@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>สินค้าแนะนำ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #8bc9c4;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    #cart-icon {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background-color: #13b14f;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      z-index: 999;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+    }
+
+    #cart-popup {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 300px;
+      display: none;
+    }
+
+    .top-bar {
+      background-color: #000;
+      color: #fff;
+      padding: 15px 225px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar .left, .top-bar .center, .top-bar .right {
+      display: flex;
+      align-items: center;
+    }
+
+    .top-bar .left span,
+    .top-bar .center span,
+    .top-bar .right a {
+      margin-right: 15px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .top-bar .right a:hover {
+      text-decoration: underline;
+    }
+
+    .product-box {
+      max-width: 500px;
+      margin: 30px auto;
+      background-color: white;
+      border: 2px solid #007acc;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #product-wrapper {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .product {
+      width: 500px;
+      padding: 20px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .product img {
+      width: 80%;
+      height: auto;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .product h3 {
+      margin: 10px 0 5px;
+      color: #007acc;
+    }
+
+    .product p {
+      margin: 0 0 10px;
+    }
+
+    .product a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #007acc;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .product a:hover {
+      background-color: #005b99;
+    }
+
+    .controls button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(204, 208, 211, 0);
+      color: rgb(0, 0, 0);
+      border: none;
+      padding: 10px 15px;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 5px;
+      z-index: 10;
+    }
+
+    .controls button:hover {
+      background-color: #a9daf8;
+    }
+
+    .controls button:first-child {
+      left: 10px;
+    }
+
+    .controls button:last-child {
+      right: 10px;
+    }
+
+    header {
+      background-color: #f5f2f2;
+      color: white;
+      padding: 20px;
+      text-align: right;
+    }
+
+    nav {
+      background-color: #f5f2f2;
+      padding: 20px 75px;
+      text-align: right;
+    }
+
+    nav a {
+      color: rgb(0, 0, 0);
+      margin: 10px;
+      text-decoration: none;
+      font-weight: normal;
+      text-align: right;
+    
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+    
+    main {
+      padding: 20px;
+    }
+      
+     .info-box-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin: 20px 0;
+}
+
+.info-box {
+  flex: 1;
+  min-width: 300px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+  margin: 70px;
+}
+
+.info-box:hover {
+  transform: translateY(-4px);
+}
+
+.info-box h3 {
+  font-size: 20px;
+  color: #ff6600;
+  margin-bottom: 15px;
+}
+
+.info-box ul {
+  padding-left: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.info-box a {
+  color: #c41c00;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.info-box a:hover {
+  text-decoration: underline;
+}
+
+
+    .category {
+      background-color: rgb(0, 197, 26);
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      background-color: #000000;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+      .custom-footer {
+      background-color: #000;
+      color: white;
+      padding: 40px 80px;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-column {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .logo-column h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .footer-column h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .footer-column p,
+    .footer-column li {
+      line-height: 1.8;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-column ul li a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .footer-column ul li a:hover {
+      text-decoration: underline;
+      color: white;
+    }
+
+    .social-icons a {
+      margin-right: 10px;
+    }
+
+    .social-icons img {
+      filter: invert(1);
+      width: 22px;
+      height: 22px;
+      transition: transform 0.2s;
+    }
+
+    .social-icons img:hover {
+      transform: scale(1.2);
+    }
+    .brand-box {
+      background-color: #ffffff;
+      border-radius: 0px;
+      padding: 30px;
+      width: 1000px 10;
+      margin: 40px auto;
+      box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
+      font-variant-position: normal;
+      transition : 0.5s;
+    }
+    .brand-row {
+      display: flex;
+      justify-content: center;  /* จัดให้อยู่กลางแนวนอน */
+      align-items: center;      /* จัดให้อยู่กลางแนวตั้ง */
+      gap: 30px;                /* ระยะห่างระหว่างรูป */
+      margin: 40px auto;
+      flex-wrap: wrap;          /* ให้รูปย่อบรรทัดได้หากจอเล็ก */
+      transition: 0.5s;
+    }
+
+    .brand {
+      object-fit: contain;
+    }
+
+    /* กำหนดขนาดแยกแต่ละรูป */
+    .brand-ihavecpu {
+      flex : 1;
+      width: 200px;
+      transition: 0.5s;
+    }
+
+    .brand-jib {
+      width: 200px;
+    }
+
+    .brand-advice {
+      width: 200px;
+    }
+    @media (max-width: 600px) {
+    }
+      .brand {
+        width: 100%;
+        max-width: 300px;
+        transition: 0.5s;
+      }
+
+      nav {
+        text-align: center;
+      }
+
+      </style>
+    </head>
+<body>
+    
+<!-- 🔷 Cart Icon -->
+<div id="cart-icon" onclick="openCartPopup()">
+  🧺 <span id="cart-count">0</span> | <span id="cart-total">0</span> บาท
+</div>
+
+<!-- 🔷 Cart Popup -->
+<div id="cart-popup">
+  <h3>🧺 รายการสินค้าในตะกร้า</h3>
+  <ul id="cart-items" style="padding-left: 20px;"></ul>
+  <hr>
+  <p><strong>ราคารวม: <span id="popup-total">0</span> บาท</strong></p>
+  <button onclick="closeCartPopup()" style="margin-top: 10px;">ปิด</button>
+</div>
+
+<!-- 🔷 Top Bar -->
+<div class="top-bar">
+  <div class="center">
+    <span>📞 0646906695</span>
+    <span>✉️ NTR.com</span>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ถ้าคุณชอบผม คุณคือเกย์</span>
+  </div>
+  <div class="right">
+    <a href="#">ร้านค้าใกล้คุณ</a>
+  </div>
+</div>
+
+<!-- 🔷 Navigation -->
+<nav>
+  <a href="monitor.html">จอคอมพิวเตอร์</a>
+  <a href="accessories.html">อุปกรณ์คอมพิวเตอร์</a>
+  <a href="cpu.html">ซีพียู</a>
+  <a href="gpu.html">การ์ดจอ</a>
+  <a href="Ram&SSd.html">แรม & SSD</a>
+  <a href="mainboard.html">เมนบอร์ด</a>
+  <a href="powersupply.html">พาวเวอร์ซัพพลาย</a>
+  <a href="case.html">เคส</a>
+</nav>
+
+<!-- 🔷 Main Content -->
+<main>
+  <h1 style="text-align: center;color: #000;">สินค้าแนะนำ<span style="color: #089113;">&nbsp;&nbsp;พร้อมราคาสุดพิเศษ</span></h1>
+  <div class="product-box">
+    <div id="product-wrapper">
+      <div class="product">
+        <img src="monitor1.jpg" />
+        <h3>จอคอมพิวเตอร์ AOC 24G4/67</h3>
+        <p>ความละเอียด Full HD, 180Hz, IPS, AdaptiveSync</p>
+        <h2>ราคา 4580 บาท</h2>
+        <a href="javascript:void(0)" onclick="addToCart(0)">เพิ่มลงตะกร้าสินค้า</a>
+      </div>
+      <div class="product">
+        <img src="mouse.jpg" />
+        <h3>เกมมิ่งเมาส์ 2400 DPI ESTONE X9</h3>
+        <p>ปุ่มมาโคร + เบาสบาย</p>
+        <h2>ราคา 449 บาท</h2>
+        <a href="javascript:void(0)" onclick="addToCart(1)">เพิ่มลงตะกร้าสินค้า</a>
+      </div>
+      <div class="product">
+        <img src="Cpu.jpg" />
+        <h3>CPU (ซีพียู) INTEL CORE I5-14500</h3>
+        <p>ที่มาพร้อมกับ 14C-20T รันตั้งแต่ 1.9-5.0Ghz</p>
+        <h2>ราคา 8499 บาท</h2>
+        <a href="javascript:void(0)" onclick="addToCart(2)">เพิ่มลงตะกร้าสินค้า</a>
+      </div>
+      <div class="product">
+        <img src="Gpu.jpg"/>
+        <h3>MSI GeForce RTX™ 5060 Ti 8G GAMING OC</h3>
+        <p>การ์ดจอ 50 ซีรี่ส์ ที่มาพร้อมกับ Framegeneration X4</p>
+        <h2>ราคา 13299 บาท</h2>
+        <a href="javascript:void(0)" onclick="addToCart(3)">เพิ่มลงตะกร้าสินค้า</a>
+      </div>
+    </div>
+    <div class="controls">
+      <button onclick="prevProduct()"> < </button>
+      <button onclick="nextProduct()"> > </button>
+    </div>
+  </div>
+</main>
+  <div class="info-box-wrapper">
+  <!-- กล่องที่ 1 -->
+  <div class="info-box">
+    <h3>🛠️ <span>วิธีการดูแลคอมพิวเตอร์</span></h3>
+    <ul>
+      <li>หมั่นทำความสะอาดเครื่องคอมพิวเตอร์อย่างสม่ำเสมอ</li>
+      <li>อย่าปล่อยให้เครื่องร้อนเกินไป ตรวจสอบพัดลมและระบายอากาศ</li>
+      <li>อัปเดตระบบปฏิบัติการและโปรแกรมให้ทันสมัยอยู่เสมอ</li>
+    </ul>
+    <a href="https://www.hp.com/th-th/shop/tech-takes/post/10-%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B9%87%E0%B8%94%E0%B8%A5%E0%B8%B1%E0%B8%9A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B3%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C">👉 อ่านเพิ่มเติมเกี่ยวกับการจัดเก็บ - ข้อมูลจาก Hp.com</a>
+  </div>
+
+  <!-- กล่องที่ 2 -->
+  <div class="info-box">
+    <h3>📦 <span>การจัดเก็บอุปกรณ์</span></h3>
+    <ul>
+      <li>จัดเก็บอุปกรณ์ในที่แห้งและห่างจากความชื้น</li>
+      <li>เก็บสายไฟให้เป็นระเบียบ</li>
+      <li>ใช้กล่องหรือถุงป้องกันฝุ่นสำหรับอุปกรณ์สำรอง</li>
+    </ul>
+    <a href="https://www.hp.com/th-th/shop/tech-takes/post/10-%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B9%87%E0%B8%94%E0%B8%A5%E0%B8%B1%E0%B8%9A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B3%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C">👉 อ่านเพิ่มเติมเกี่ยวกับการจัดเก็บ - ข้อมูลจาก Hp.com</a>
+  </div>
+</div>
+
+<div class="brand-box">
+  <div class="brand-row">
+    <h1 style="text-align: left;">ผู้สนับสนุนรายใหญ่&nbsp;&nbsp; >>>></h1>
+  <a href="https://ihavecpu.com/"><img src="Logo.jpg" alt="iHAVECPU" class="brand brand-ihavecpu"></a>
+  <a href="https://www.jib.co.th/"><img src="JIB.jpg" alt="JIB" class="brand brand-jib"></a>
+  <a href="https://www.advice.co.th/"><img src="Advice.jpg" alt="Advice" class="brand brand-advice"></a>
+  </div>
+</div>
+<div class="custom-footer">
+  <div class="footer-container">
+    <div class="footer-column logo-column">
+      <h2><span style="color: red;">I</span>Don't<span style="color: red;">Have</span>Cpu<span style="color: #007acc;"></span></h2>
+      <p>
+        ถ้าคุณชอบคอมพิวเตอร์ คุณก็ได้แค่คอม ถ้าไม่ได้ชอบเธอก็ไม่ได้เธอมาครอบครอง นะจ๊ะ
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h3>เกี่ยวกับเรา</h3>
+      <ul>
+        <li><a href="#">ติดต่อเรา</a></li>
+        <li><a href="#">เกี่ยวกับเรา</a></li>
+        <li><a href="#">ข้อกำหนดและเงื่อนไข</a></li>
+        <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>บริการลูกค้า</h3>
+      <ul>
+        <li><a href="#">การจัดส่งสินค้า</a></li>
+        <li><a href="#">การรับประกันสินค้า</a></li>
+        <li><a href="#">การยกเลิกการสั่งซื้อสินค้า</a></li>
+        <li><a href="#">การคืนสินค้าและการคืนเงิน</a></li>
+        <li><a href="#">เช็คสถานะการจัดส่ง</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>ติดต่อเรา</h3>
+      <p>เลขที่ 024 ตำบล บางเสร่ อำเภอสัตหีบ ชลบุรี 20250 </p>
+      <p>โทรศัพท์: 0646906695</p>
+      <p>อีเมล: 66209010024@tatc.ac.th</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=61566410191098"><img src="https://img.icons8.com/ios-filled/24/facebook-new.png"/></a>
+        <a href="#"><img src="https://img.icons8.com/ios-filled/24/line-me.png"/></a>
+        <a href="https://www.youtube.com/@Ne_nine"><img src="https://img.icons8.com/ios-filled/24/youtube-play.png"/></a>
+        <a href="https://www.tiktok.com/@ne.nine"><img src="https://img.icons8.com/ios-filled/24/tiktok.png"/></a>
+        <a href="https://www.instagram.com/ne.nine07/"><img src="https://img.icons8.com/ios-filled/24/instagram-new.png"/></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+<!-- 🔷 Footer -->
+<footer>
+  &copy; 2025 อ่านทำไม | จัดทำเพื่อความชอบใจล้วนๆ
+</footer>
+
+<!-- 🔷 Script -->
+<script>
+  let currentIndex = 0;
+  const wrapper = document.getElementById("product-wrapper");
+  const productCount = wrapper.children.length;
+
+  function updateSlide() {
+    wrapper.style.transform = `translateX(-${currentIndex * 500}px)`;
+  }
+
+  function nextProduct() {
+    if (currentIndex < productCount - 1) {
+      currentIndex++;
+      updateSlide();
+    }
+  }
+
+  function prevProduct() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSlide();
+    }
+  }
+
+  const products = [
+    { name: "จอคอมพิวเตอร์ AOC 24G4/67", price: 4580 },
+    { name: "เกมมิ่งเมาส์ 2400 DPI ESTONE X9", price: 449 },
+    { name: "CPU (ซีพียู) INTEL CORE I5-14500", price: 8499 },
+    { name: "MSI GeForce RTX™ 5060 Ti 8G GAMING OC", price: 13299 }
+  ];
+
+  let cartItems = [];
+  let cartCount = 0;
+  let cartTotal = 0;
+
+  function addToCart(index) {
+    const product = products[index];
+    cartItems.push(product);
+    cartCount++;
+    cartTotal += product.price;
+
+    document.getElementById("cart-count").innerText = cartCount;
+    document.getElementById("cart-total").innerText = cartTotal.toLocaleString();
+    updateCartPopup();
+  }
+
+  function updateCartPopup() {
+    const cartList = document.getElementById("cart-items");
+    const popupTotal = document.getElementById("popup-total");
+    cartList.innerHTML = "";
+
+    let total = 0;
+    cartItems.forEach(item => {
+      const li = document.createElement("li");
+      li.innerText = `${item.name} - ${item.price.toLocaleString()} บาท`;
+      cartList.appendChild(li);
+      total += item.price;
+    });
+
+    popupTotal.innerText = total.toLocaleString();
+  }
+
+  function openCartPopup() {
+    updateCartPopup();
+    document.getElementById("cart-popup").style.display = "block";
+  }
+
+  function closeCartPopup() {
+    document.getElementById("cart-popup").style.display = "none";
+  }
+</script>
+
+</body>
+</html>

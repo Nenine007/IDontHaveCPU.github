@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <title>เคสคอมพิวเตอร์</title>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Kanit', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-color: pink;
+    }
+
+    .top-bar {
+      background-color: #000;
+      color: #fff;
+      padding: 15px 225px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar span,
+    .top-bar a {
+      margin-right: 25px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .layout {
+      display: flex;
+      flex: 1;
+    }
+
+    .menu {
+      width: 60px;
+      background-color: #4a4b4b;
+      padding: 10px 0;
+      overflow: hidden;
+      transition: width 1s ease;
+      color: white;
+      flex-shrink: 0;
+      height: 100%;
+    }
+
+    .menu:hover {
+      width: 260px;
+    }
+
+    .menu li {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      border-radius: 0 50px 0 0;
+      margin-bottom: 15px;
+      padding: 10px 20px;
+    }
+
+    .menu li a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      width: 100%;
+    }
+
+    .menu li span:nth-child(2) {
+      margin-left: 30px;
+    }
+
+    .menu li:hover {
+      background-color: #0ac2f09c;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .page-title {
+      font-size: 40px;
+      font-weight: bold;
+      margin-bottom: 40px;
+      color: black;
+      text-align: right;
+    }
+
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      display: block;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      text-align: center;
+      padding: 20px;
+      text-decoration: none;
+      color: #000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      background-color: #e0f7ff;
+    }
+
+    .product-card img {
+      width: 50%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .brand-box {
+      width: 100vw;
+      height: 325px;
+      background-color: #ffffff;
+      padding: 30px;
+      margin-top: 0px;
+      border-top: 1px solid #bbbbbb;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .brand-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .brand {
+      object-fit: contain;
+      width: 200px;
+      transition: 0.5s;
+    }
+
+    .custom-footer {
+      width: 100vw;
+      background-color: #000;
+      color: white;
+      padding: 40px 80px;
+      font-size: 14px;
+      margin-top: 0;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-column {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .logo-column h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .footer-column h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .footer-column p,
+    .footer-column li {
+      line-height: 1.8;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-column ul li a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .footer-column ul li a:hover {
+      text-decoration: underline;
+      color: white;
+    }
+
+    .social-icons a {
+      margin-right: 10px;
+    }
+
+    .social-icons img {
+      filter: invert(1);
+      width: 22px;
+      height: 22px;
+      transition: transform 0.2s;
+    }
+
+    .social-icons img:hover {
+      transform: scale(1.2);
+    }
+
+    footer {
+      background-color: #000000;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Top bar -->
+  <div class="top-bar">
+    <div class="center">
+      <span>📞 0646906695</span>
+      <span>✉️ NTR.com</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ถ้าคุณชอบผม คุณคือเกย์</span>
+    </div>
+    <div class="right">
+      <a href="#">ร้านค้าใกล้คุณ</a>
+    </div>
+  </div>
+
+  <!-- ✅ Layout: menu + main -->
+  <main class="layout">
+    <!-- 🔵 Side menu -->
+    <ul class="menu">
+      <li><a href="Website.html"><span>🏠</span><span>หน้าแรก</span></a></li>
+      <li><a href="monitor.html"><span>🖥️</span><span>จอคอมพิวเตอร์</span></a></li>
+      <li><a href="accessories.html"><span>⚙️</span><span>อุปกรณ์คอมพิวเตอร์</span></a></li>
+      <li><a href="Cpu.html"><span>🧩</span><span>ซีพียู</span></a></li>
+      <li><a href="Gpu.html"><span>🎮</span><span>การ์ดจอ</span></a></li>
+      <li><a href="Ram&SSd.html"><span>🫙</span><span>แรม & SSd</span></a></li>
+      <li><a href="mainboard.html"><span>🗃️</span><span>เมนบอร์ด</span></a></li>
+      <li><a href="powersupply.html"><span>⚡</span><span>พาวเวอร์ซัพพลาย</span></a></li>
+      <li><a href="case.html"><span>📦</span><span>เคส</span></a></li>
+    </ul>
+
+    <!-- 🔵 Main content -->
+    <div class="main-content">
+      <div class="page-title">เคส</div>
+
+      <div class="product-container">
+        <a href="#" class="product-card">
+          <img src="case3.jpg" />
+          <h3>CASE GIGABYTE C102 GLASS (ดำ)</h3>
+          <p>ราคา 1650 บาท</p>
+        </a>
+        
+        <a href="#" class="product-card">
+          <img src="case1.jpg" />
+          <h3>SAMA Gaming Case IHaveCPU RGB FANS</h3>
+          <p>ราคา 3990 บาท</p>
+        </a>
+             
+        <a href="#" class="product-card">
+          <img src="case2.jpg" />
+          <h3>CASE NZXT H7 ELITE WHITE</h3>
+          <p>ราคา 5980 บาท</p>
+        </a>
+       
+        <a href="#" class="product-card">
+          <img src="case4.jpg" />
+          <h3>SAMA Light IHaveCPU Case</h3>
+          <p>ราคา 6000 บาท</p>
+        </a>
+
+        <a href="#" class="product-card">
+          <img src="case5.jpg" />
+          <h3>Asus Tuff Neon RGB FANS Case</h3>
+          <p>ราคา 7229 บา่ท</p>
+        </a>
+
+        <a href="#" class="product-card">
+          <img src="case6.jpg" />
+          <h3>Ultra RGB Pink Case</h3>
+          <p>ราคา 7999 บาท</p>
+        </a>
+
+        <a href="#" class="product-card">
+          <img src="case7.jpg" />
+          <h3>ROG Super Hammel X Evangelcon</h3>
+          <p>ราคา 9000 บาท</p>
+        </a>
+
+        <a href="#" class="product-card">
+          <img src="case8.jpg" />
+          <h3>ASUS ROG HYPEION GR701 Genshin Impact</h3>
+          <p>ราคา 33899 บาท</p>
+        </a>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ✅ กล่องผู้สนับสนุน - วางไว้นอก layout -->
+  <div class="brand-box">
+    <div class="brand-row">
+      <h1 style="text-align: left;">ผู้สนับสนุนรายใหญ่&nbsp;&nbsp; >>>></h1>
+      <a href="https://ihavecpu.com/"><img src="Logo.jpg" alt="iHAVECPU" class="brand" /></a>
+      <a href="https://www.jib.co.th/"><img src="JIB.jpg" alt="JIB" class="brand" /></a>
+      <a href="https://www.advice.co.th/"><img src="Advice.jpg" alt="Advice" class="brand" /></a>
+    </div>
+  </div>
+
+  <!-- ✅ Footer - วางไว้นอก layout เช่นกัน -->
+  <div class="custom-footer">
+    <div class="footer-container">
+      <div class="footer-column logo-column">
+        <h2><span style="color: red;">I</span>Don't<span style="color: red;">Have</span>Cpu</h2>
+        <p>ความพยาอยู่ที่ไหน ความสำเร็จอยู่ที่นั้น ก็เหมือนกับคุณที่พยายามแทบตาย เพื่อที่จะเก็บตังซื้อคอมพิวเตอร์</p>
+      </div>
+
+      <div class="footer-column">
+        <h3>เกี่ยวกับเรา</h3>
+        <ul>
+          <li><a href="#">ติดต่อเรา</a></li>
+          <li><a href="#">เกี่ยวกับเรา</a></li>
+          <li><a href="#">ข้อกำหนดและเงื่อนไข</a></li>
+          <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>บริการลูกค้า</h3>
+        <ul>
+          <li><a href="#">การจัดส่งสินค้า</a></li>
+          <li><a href="#">การรับประกันสินค้า</a></li>
+          <li><a href="#">การยกเลิกคำสั่งซื้อ</a></li>
+          <li><a href="#">การคืนสินค้า</a></li>
+          <li><a href="#">เช็คสถานะจัดส่ง</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>ติดต่อเรา</h3>
+        <p>024 ต.บางเสร่ อ.สัตหีบ จ.ชลบุรี 20250</p>
+        <p>โทร: 0646906695</p>
+        <p>อีเมล: 66209010024@tatc.ac.th</p>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/profile.php?id=61566410191098"><img src="https://img.icons8.com/ios-filled/24/facebook-new.png" /></a>
+          <a href="#"><img src="https://img.icons8.com/ios-filled/24/line-me.png" /></a>
+          <a href="https://www.youtube.com/@Ne_nine"><img src="https://img.icons8.com/ios-filled/24/youtube-play.png" /></a>
+          <a href="https://www.tiktok.com/@ne.nine"><img src="https://img.icons8.com/ios-filled/24/tiktok.png" /></a>
+          <a href="https://www.instagram.com/ne.nine07/"><img src="https://img.icons8.com/ios-filled/24/instagram-new.png" /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Bottom bar -->
+  <footer>
+    &copy; 2025 อ่านทำไม | จัดทำเพื่อความชอบใจล้วนๆ
+  </footer>
+
+</body>
+</html>
